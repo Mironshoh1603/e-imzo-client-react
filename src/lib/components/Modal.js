@@ -25,6 +25,7 @@ export default function Modal() {
 
   const reqGuid = async () => {
     const backendGuid = await axios.get(`http://localhost:8000/api/v1/user`);
+    console.log(backendGuid);
     return backendGuid;
   };
   const getData = () => {
