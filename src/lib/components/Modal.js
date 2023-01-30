@@ -24,15 +24,12 @@ export default function Modal() {
   }, []);
 
   const reqGuid = async () => {
-    const backendGuid = await axios.get(
-      `http://localhost:8080/?key=${keyId.id}`
-    );
-    console.log(backendGuid, "sdvdvdvd------vedvdv-");
+    const backendGuid = await axios.get(`http://localhost:8000/api/v1/user`);
     return backendGuid;
   };
   const getData = () => {
     const getKeyData = async () => {
-      const keyData = await EIMZOClient.loadKey(certificates[0]);
+      const keyData = await EIMZOClient.loadKey(certificates[1]);
       console.log(keyData);
       setKeyId(keyData);
       console.log(keyData);
@@ -60,10 +57,16 @@ export default function Modal() {
 
   useEffect(() => {
     const verifyPkcs = async () => {
-      const info = await axios.post("http://localhost:8080/pkcs7", {
-        pkcs: pkcsInfo,
-        infoCert: keyId,
-      });
+      const info = await axios.post(
+        "http://localhost:8000/api/v1/user",
+        {
+          pkcs: pkcsInfo,
+          infoCert: keyId,
+        },
+        {
+          withCredentials: true,
+        }
+      );
       console.log(info);
       setResultPkcs(info);
     };
